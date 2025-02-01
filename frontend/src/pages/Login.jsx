@@ -2,8 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const Signup = () => {
-  const [name, setName] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,11 +11,11 @@ const Signup = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
-        { name, email, password }
+        "http://localhost:5000/api/auth/login",
+        { email, password }
       );
       if (response.data.success) {
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       console.log(error.message);
@@ -26,19 +25,8 @@ const Signup = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="border shadow p-6 w-80 bg-white rounded-xl">
-        <h2 className="text-2xl font-bold mb-4 text-center">Signup</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Name</label>
-            <input
-              className="w-full px-3 py-2 border"
-              type="text"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              placeholder="Enter UserName"
-              required
-            />
-          </div>
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             <input
@@ -66,10 +54,10 @@ const Signup = () => {
               type="submit"
               className="w-full bg-teal-600 text-white py-2"
             >
-              Signup
+              Login
             </button>
             <p className="text-center">
-              Already Have Account? <Link to="/login">Login</Link>
+              Dont Have Account? <Link to="/register">Register</Link>
             </p>
           </div>
         </form>
@@ -78,4 +66,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
