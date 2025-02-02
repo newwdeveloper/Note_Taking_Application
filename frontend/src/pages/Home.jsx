@@ -12,16 +12,25 @@ const Home = () => {
   };
   const addNote = async ({ title, description }) => {
     try {
-      const response = await axios.post("http://localhost:5000/api/note/add", {
-        title,
-        description,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/note/add",
+        {
+          title,
+          description,
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      );
       if (response.data.success) {
         navigate("/");
         closeModel();
       }
     } catch (error) {
-      console.log(error.message);
+      console.error(
+        "Error:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
   return (
